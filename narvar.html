@@ -1,0 +1,55 @@
+<div id="resultDivContainer"></div>
+
+<script>
+
+
+var settings = {
+  "async": true,
+  "crossDomain": true,
+  "url": "https://www.sunglasshut.com/narvar/api/shipping",
+  "method": "POST",
+  "contentType": "application/json",
+  "headers": {
+    "cache-control": "no-cache"
+  },
+  "data": {  
+       "retailerName":"sunglasshut",
+       "OAuthToken":"kjU8LDCJgjhmavEL",
+       "source":"test",
+       "shipping":[  
+          {  
+             "orderDate":"2016-08-15 02:57:18Z",
+             "carrier":"UPS",
+             "serviceType":"E1",
+             "ozip":"94403",
+             "dzip":"94401",
+             "fulfillmentDays":1
+          }
+       ]
+    }
+
+}
+
+
+var narvar = {
+    "async": true,
+    "crossDomain": true,
+    "url": "https://www.sunglasshut.com/narvar/api/shipping",
+    "method": "POST",
+    "contentType": "application/json",
+    "headers": {
+        "cache-control": "no-cache"
+  },
+  "data": "{ \"retailerName\":\"sunglasshut\", \"OAuthToken\":\"kjU8LDCJgjhmavEL\",\r\n   \"source\":\"test\",\r\n  \"shipping\":[  \r\n  {  \r\n  \"orderDate\":\"2016-08-15 02:57:18Z\",\r\n  \"carrier\":\"UPS\",\r\n  \"serviceType\":\"E1\",\r\n \"ozip\":\"94403\",\r\n \"dzip\":\"94401\",\r\n \"fulfillmentDays\":1\r\n  }\r\n  ]\r\n}\r\n"
+}
+
+
+$.ajax(narvar)
+    .done(function (response) {
+        console.log('response '+response);
+    })
+    .fail(function(){
+      console.log("error");
+    })
+
+ </script>

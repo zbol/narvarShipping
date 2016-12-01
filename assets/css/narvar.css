@@ -1,0 +1,34 @@
+/* === Shipping Cart === */
+.shipping_method_content .fe.half {float: none; margin: 0px !important; width: 100%; box-sizing: border-box;}
+.shipping_method_content .fe.half .drop_down {height: 0px !important; padding: 0px !important;}
+.shipping_method_content .fe.half .select-wrapper.state-required {  border: none !important; height: 0px !important; }
+.shipping_method_content span.required {padding: 10px 20px; text-align: center; border-bottom: solid 1px #E74C3C; margin-bottom: 10px;}
+#cart-body #cart-left .shipping_method_content .select-wrapper.gray {height: 0px;}
+.shipping_method_content {border: 1px solid #111; padding: 20px; box-sizing: border-box; margin-bottom: 25px;}
+#shppingMethodDiv h3 label {font-size: 20px !important; padding: 20px 0px 15px;  font-family: "brandon_bold",Helvetica,Arial,sans-serif;}
+.sgh-ship-radio {display: block; padding: 3px 0; font-family: "brandon_regular",Helvetica,Arial,sans-serif;}
+.sgh-ship-radio input {display: none;}
+.sgh-ship-radio label {position: relative; line-height: 16px; cursor: pointer; display: inline-block !important; }
+.sgh-ship-radio span.icon { display: inline-block; margin-right: 5px; position: relative; top: 5px;}
+.sgh-ship-radio a { text-transform: none; font-family: "brandon_regular",Helvetica,Arial,sans-serif;}
+.sgh-ship-radio a span {text-decoration: underline; cursor: pointer;}
+.shipping_method label span,
+.shipping_method label strong,
+.shipping_method label {font-size: 15px !important;}
+.shipping_method_content .shipping-method-disclaimer {color: #E74C3C; font-size: 13px !important; padding-top: 20px; text-transform: uppercase !important;} 
+.shipping_method_content .shipping-method-disclaimer .shipping-modal-details{text-decoration: underline; color: #959595; cursor: pointer;}
+.shipping-modal-details {    
+	text-decoration: underline;
+    cursor: pointer;
+}
+p.estimate-header {
+    font-size: 18px !important;
+    padding-bottom: 8px;
+    text-transform: uppercase !important;
+}
+p.estimate-body {
+    font-size: 14px !important;
+    padding-bottom: 20px;
+}
+.ship-countdown, 
+.ship-count-container{display: none;}
