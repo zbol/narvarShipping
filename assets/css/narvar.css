@@ -32,3 +32,7 @@ p.estimate-body {
 }
 .ship-countdown, 
 .ship-count-container{display: none;}
+
+@media (min-height:710px) {
+  .modal-style .modal-scroller {height: 400px;  }
+}

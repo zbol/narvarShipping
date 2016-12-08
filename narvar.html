@@ -1,55 +1,188 @@
-<div id="resultDivContainer"></div>
+<style>
+  /* === Shipping Global Header Style === */
+#shipping_modal_details { cursor: pointer; display: none; white-space: nowrap;}
+#shipping_modal_details span {text-decoration: underline;}
+#shipping_modal_details i {font-style: normal;}
 
-<script>
+/* === Modal Style === */
+.modal-style  {position: fixed; display: none; top: 0px; left: 0px; width: 100%; height: 100%; z-index: 120;}
+.modal-style .modal-container {width: 800px; box-sizing: border-box; padding: 0 25px 40px; text-align: center; background-color: #fff; z-index: 2; position: absolute; top: 50%; left: 50%; -webkit-transform: translate(-50%, -50%); -moz-transform: translate(-50%, -50%); -ms-transform: translate(-50%, -50%); transform: translate(-50%, -50%); -webkit-transform-style: preserve-3d; -moz-transform-style: preserve-3d; transform-style: preserve-3d;}
+.modal-style .modal-header {position: relative; text-align: center; height: 90px;}
+.modal-style .modal-header h3 {text-align: center; font-size: 24px; line-height: 90px; letter-spacing: .5px; font-family: "brandon_bold",Helvetica,Arial,sans-serif;}
+.modal-style .close-menu {position: absolute; cursor: pointer; top: 15px; right: 15px; display: block; color: #111; font-weight: normal; font-family: "brandon_bold",Helvetica,Arial,sans-serif; padding-top: 2px; font-size: 18px;}
+.modal-style .close-menu p {font-family: "brandon_regular",Helvetica,Arial,sans-serif; font-size: 10px; font-weight: normal;}
+.modal-style .modal-background {position: absolute; width: 100%; z-index: 1; height: 100%; background: rgba(0, 0, 0, 0.7);}
+.modal-style .modal-sgh-logo {margin: 40px auto 0;}
+.modal-style .modal-scroller { box-sizing: border-box; border: solid 1px #111; height: 300px; overflow-y: scroll; padding: 30px; }
+
+/* === Shipping Modal Style === */
+.modal-style #mail_transit { padding-top: 40px; border-top: #ccc solid 1px; margin-top: 20px;}
+.modal-style #mail_transit  section {padding: 5px 0;}
+.modal-style #mail_transit h3 { font-size: 18px; text-transform: none; padding-bottom: 10px; font-family: "brandon_bold",Helvetica,Arial,sans-serif; font-weight: normal;}
+.modal-style #mail_transit h4 {padding-bottom: 5px; font-family: "brandon_medium",Helvetica,Arial,sans-serif; font-weight: normal;  margin: 0px !important;}
+.modal-style #mail_transit p { text-transform: none; line-height: 16px; padding-bottom: 5px;}
+.modal-style p.grey-copy {color: #959595;  text-transform: none; font-size: 14px;}
+.modal-style .red {color: rgb(231, 76, 60);}
+.modal-style .dataShippingDelivery {margin: 0 auto 20px; }
+.modal-style .dataShippingDelivery td  {padding: 10px 25px; text-align: left;}
+.modal-style ul {border-bottom: #ccc solid 1px; padding-bottom: 40px; margin-bottom: 40px;}
+.modal-style ul li { text-transform: none; list-style: none; padding-bottom: 20px; font-size: 14px; font-family: "brandon_regular",Helvetica,Arial,sans-serif;}
+
+/* === Shipping Cart === */
+.shipping_method_content .fe.half {float: none; margin: 0px !important; width: 100%; box-sizing: border-box;}
+.shipping_method_content .fe.half .drop_down {height: 0px !important; padding: 0px !important;}
+.shipping_method_content .fe.half .select-wrapper.state-required {  border: none !important; height: 0px !important; }
+.shipping_method_content span.required {padding: 10px 20px; text-align: center; border-bottom: solid 1px #E74C3C; margin-bottom: 10px;}
+#cart-body #cart-left .shipping_method_content .select-wrapper.gray {height: 0px;}
+.shipping_method_content {border: 1px solid #111; padding: 20px; box-sizing: border-box; margin-bottom: 25px;}
+#shppingMethodDiv h3 label {font-size: 20px !important; padding: 20px 0px 15px;  font-family: "brandon_bold",Helvetica,Arial,sans-serif;}
+.sgh-ship-radio {display: block; padding: 3px 0; font-family: "brandon_regular",Helvetica,Arial,sans-serif;}
+.sgh-ship-radio input {display: none;}
+.sgh-ship-radio label {position: relative; line-height: 16px; cursor: pointer; display: inline-block !important; }
+.sgh-ship-radio span.icon { display: inline-block; margin-right: 5px; position: relative; top: 5px;}
+.sgh-ship-radio a { text-transform: none; font-family: "brandon_regular",Helvetica,Arial,sans-serif;}
+.sgh-ship-radio a span {text-decoration: underline; cursor: pointer;}
+.shipping_method label span,
+.shipping_method label strong,
+.shipping_method label {font-size: 15px !important;}
+.shipping_method_content .shipping-method-disclaimer {color: #E74C3C; font-size: 13px !important; padding-top: 20px; text-transform: uppercase !important;} 
+.shipping_method_content .shipping-method-disclaimer .shipping-modal-details{text-decoration: underline; color: #959595; cursor: pointer;}
+.shipping-modal-details {    
+  text-decoration: underline;
+    cursor: pointer;
+}
+p.estimate-header {
+    font-size: 18px !important;
+    padding-bottom: 8px;
+    text-transform: uppercase !important;
+}
+p.estimate-body {
+    font-size: 14px !important;
+    padding-bottom: 20px;
+}
+.ship-countdown, 
+.ship-count-container{display: none;}
 
 
-var settings = {
-  "async": true,
-  "crossDomain": true,
-  "url": "https://www.sunglasshut.com/narvar/api/shipping",
-  "method": "POST",
-  "contentType": "application/json",
-  "headers": {
-    "cache-control": "no-cache"
-  },
-  "data": {  
-       "retailerName":"sunglasshut",
-       "OAuthToken":"kjU8LDCJgjhmavEL",
-       "source":"test",
-       "shipping":[  
-          {  
-             "orderDate":"2016-08-15 02:57:18Z",
-             "carrier":"UPS",
-             "serviceType":"E1",
-             "ozip":"94403",
-             "dzip":"94401",
-             "fulfillmentDays":1
-          }
-       ]
-    }
-
+.shipping_method_content.ship-hto {
+    border: none;
+    padding: 20px;
+    box-sizing: border-box;
+    margin-bottom: 25px;
 }
 
-
-var narvar = {
-    "async": true,
-    "crossDomain": true,
-    "url": "https://www.sunglasshut.com/narvar/api/shipping",
-    "method": "POST",
-    "contentType": "application/json",
-    "headers": {
-        "cache-control": "no-cache"
-  },
-  "data": "{ \"retailerName\":\"sunglasshut\", \"OAuthToken\":\"kjU8LDCJgjhmavEL\",\r\n   \"source\":\"test\",\r\n  \"shipping\":[  \r\n  {  \r\n  \"orderDate\":\"2016-08-15 02:57:18Z\",\r\n  \"carrier\":\"UPS\",\r\n  \"serviceType\":\"E1\",\r\n \"ozip\":\"94403\",\r\n \"dzip\":\"94401\",\r\n \"fulfillmentDays\":1\r\n  }\r\n  ]\r\n}\r\n"
+#cart-body #cart-left .shipping_method_content.ship-hto .select-wrapper.gray{
+height: inherit;
 }
 
+.shipping_method_content.ship-hto .fe.half .drop_down {
+    height: inherit; !important; 
+     padding: 15px 25px 15px 10px; !important;
+}
 
-$.ajax(narvar)
-    .done(function (response) {
-        console.log('response '+response);
-    })
-    .fail(function(){
-      console.log("error");
-    })
+@media (min-height:710px) {
+  .modal-style .modal-scroller {height: 400px;  }
+}
+#svg_down-arrow {position: absolute; background: #fff; z-index: 2; bottom: 90px; left: 50%; -webkit-transform: translateX(-50%); -moz-transform: translateX(-50%); transform: translateX(-50%);}
 
- </script>
+</style>
+
+
+<div class="modal-style" id="shipping_modal">
+<div class="modal-container">
+<div class="modal-header">
+<h3>Shipping Details</h3>
+
+<div class="close-menu close-modal"><span class="icon">✕</span>
+
+<p>Close</p>
+</div>
+</div>
+
+<div class="modal-scroller">
+<div class="sub container no-border">
+<ul>
+  <li>&bull; All orders are subject to credit review and could require additional processing time.</li>
+  <li>&bull; Weekends and holidays are not considered business days.</li>
+  <li>&bull; Any orders placed <strong>after 2PM EST</strong> on Fridays will be processed and shipped on the next business day, usually Monday.</li>
+  <li>&bull; For all orders placed <strong>after 2PM EST</strong>, please allow one additional business day for processing. Orders will ship the following business day after processing.</li>
+  <li>&bull; Carrier delays are possible during high order volume periods and may affect shipping times.</li>
+</ul>
+
+<table class="dataShippingDelivery">
+  <tbody>
+    <tr class="first">
+      <td class="first">GROUND</td>
+      <td class="red">FREE</td>
+      <td class="last">2-7 BUSINESS DAYS*</td>
+    </tr>
+    <tr>
+      <td class="first">SECOND BUSINESS DAY</td>
+      <td class="red">FREE</td>
+      <td class="last">2 BUSINESS DAYS*</td>
+    </tr>
+    <tr>
+      <td class="first">NEXT BUSINESS DAY</td>
+      <td>$17.95</td>
+      <td class="last">1 BUSINESS DAY*</td>
+    </tr>
+    <tr>
+      <td class="first">USPS PO BOX</td>
+      <td class="red">FREE</td>
+      <td class="last">7-10 BUSINESS DAYS*</td>
+    </tr>
+    <tr>
+      <td class="first">AFO/FPO</td>
+      <td class="red">FREE</td>
+      <td class="last">SEE SHIPPING TIMES BELOW</td>
+    </tr>
+  </tbody>
+</table>
+
+<p class="grey-copy">*Available for orders placed by 2PM EST</p>
+
+<div id="mail_transit">
+<h3>DoD MAIL TRANSIT TIMES</h3>
+
+<section>
+<h4>EUROPE / ATLANTIC</h4>
+
+<p>(APO / FPO AE ZIP&trade; Codes beginning with 090-092 and 094-099)<br />
+Express Mail&reg; Military Service 3 Days<br />
+First-Class Mail&reg; / Priority Mail&reg; Service 7-9 Days<br />
+Package Services(*) 30-45 Days</p>
+</section>
+
+<section>
+<h4>IRAQ / AFGHANISTAN / MIDDLE EAST</h4>
+
+<p>(APO / FPO AE ZIP&trade; Codes beginning with 093)<br />
+Express Mail&reg; Military Service Not Available<br />
+First-Class Mail&reg; / Priority Mail&reg; Service 7-13 Days<br />
+Package Services(*) 20-24 Days</p>
+</section>
+
+<section>
+<h4>JAPAN / KOREA / PACIFIC ISLANDS / FAR EAST</h4>
+
+<p>(APO / FPO AP ZIP&trade; Codes beginning with 962-966)<br />
+Express Mail&reg; Military Service 3 Days<br />
+First-Class Mail&reg; / Priority Mail&reg; Service 7-9 Days<br />
+Package Services(*) 30-45 Days</p>
+</section>
+
+<section>
+<h4>CENTRAL AMERICA / SOUTH AMERICA / CARIBBEAN</h4>
+
+<p>(APO / FPO AA ZIP&trade; Codes beginning with 340)<br />
+Express Mail&reg; Military Service Not Available<br />
+First-Class Mail&reg; / Priority Mail&reg; Service 7-9 Days<br />
+Package Services(*) 18-21 Days</p>
+</section>
+</div>
+</div>
+</div>
+<svg id="svg_down-arrow" width="40" height="40" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 490.4 490.4"><path d="M490.4 245.2C490.4 110 380.4 0 245.2 0S0 110 0 245.2s110 245.2 245.2 245.2 245.2-110 245.2-245.2zm-465.9 0c0-121.7 99-220.7 220.7-220.7s220.7 99 220.7 220.7-99 220.7-220.7 220.7-220.7-99-220.7-220.7z"/><path d="M253.9 360.4l68.9-68.9c4.8-4.8 4.8-12.5 0-17.3s-12.5-4.8-17.3 0l-48 48V138.7c0-6.8-5.5-12.3-12.3-12.3s-12.3 5.5-12.3 12.3v183.4l-48-48c-4.8-4.8-12.5-4.8-17.3 0s-4.8 12.5 0 17.3l68.9 68.9c2.4 2.4 5.5 3.6 8.7 3.6s6.3-1.1 8.7-3.5z"/></svg><img alt="Sunglass Hut USA" class="modal-sgh-logo" src="http://www.sunglasshut.com/wcsstore/MadisonsStorefrontAssetStore/Attachment/sunglasshut-logo.png" /></div>
+
+<div class="modal-background close-modal">&nbsp;</div>
+</div>

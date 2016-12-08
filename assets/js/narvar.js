@@ -27,7 +27,7 @@
                   "headers": {
                       "cache-control": "no-cache"
                 },
-                "data": "{ \"retailerName\":\"sunglasshut\", \"OAuthToken\":\"kjU8LDCJgjhmavEL\",\r\n   \"source\":\"test\",\r\n  \"shipping\":[  \r\n  {  \r\n  \"orderDate\":\" "+orderDate+" \",\r\n  \"carrier\":\"\",\r\n  \"serviceType\":\"\",\r\n \"ozip\":\"94403\",\r\n \"dzip\":\""+zipCode+"\",\r\n \"fulfillmentDays\":1\r\n  }\r\n  ]\r\n}\r\n"
+                "data": "{ \"retailerName\":\"sunglasshut\", \"OAuthToken\":\"kjU8LDCJgjhmavEL\",\r\n   \"source\":\"test\",\r\n  \"shipping\":[  \r\n  {  \r\n  \"orderDate\":\""+orderDate+"\",\r\n  \"carrier\":\"\",\r\n  \"serviceType\":\"\",\r\n \"ozip\":\"38118\",\r\n \"dzip\":\""+zipCode+"\",\r\n \"fulfillmentDays\":0\r\n  }\r\n  ]\r\n}\r\n"
               }
               $.ajax(narvar)
                   .done(function (response) {
@@ -48,7 +48,6 @@
                       $('.val-10753 .ship-estimated').text(maxDeliveryE2+' - ') 
                       $('.val-10751 .ship-estimated').text(maxDeliveryUG+' - ')
                       $('.val-10755 .ship-estimated').text(maxDeliveryPM+' - ')
-                      $('.val-10754 .ship-estimated').text(maxDeliveryPM+' - ')
 
                       switch (checkedMethod) {
                           case "10753":
@@ -60,6 +59,12 @@
                           case "10751":
                             $('.estimate-header .red').text(maxDeliveryUG)
                             break;
+                          case "10755":
+                            $('.estimate-header .red').text(maxDeliveryPM)
+                            break;
+                          case "10754":
+                            $('.estimate-header .red').text('No Estimated Delivery on APO/FPO Orders')
+                            break;  
                         }
 
 
@@ -90,13 +95,13 @@
             
             function getOrderDate() {
               var now = new Date();
-              var year = "" + now.getFullYear();
-              var month = "" + (now.getMonth() + 1); if (month.length == 1) { month = "0" + month; }
-              var day = "" + now.getDate(); if (day.length == 1) { day = "0" + day; }
-              var hour = "" + now.getHours(); if (hour.length == 1) { hour = "0" + hour; }
-              var minute = "" + now.getMinutes(); if (minute.length == 1) { minute = "0" + minute; }
-              var second = "" + now.getSeconds(); if (second.length == 1) { second = "0" + second; }
-              return year + "-" + month + "-" + day + " " + hour + ":" + minute + ":" + second+"Z";
+              var year = "" + now.getUTCFullYear();
+              var month = "" + (now.getUTCMonth() + 1); if (month.length == 1) { month = "0" + month; }
+              var day = "" + now.getUTCDate(); if (day.length == 1) { day = "0" + day; }
+              var hour = "" + now.getUTCHours(); if (hour.length == 1) { hour = "0" + hour; }
+              var minute = "" + now.getUTCMinutes(); if (minute.length == 1) { minute = "0" + minute; }
+              var second = "" + now.getUTCSeconds(); if (second.length == 1) { second = "0" + second; }
+              return year + "-" + month + "-" + day + "T" + hour + ":" + minute + ":" + second+"Z";
             }
            console.log('Narvar loadAJAX');
         },

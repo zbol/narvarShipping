@@ -16,7 +16,7 @@
             var ship = []
             var zipCode = zip
             var checkedMethod = $( "#shipping_method option:selected" ).val()
-            console.log('date: '+ orderDate+ ' ZIP: '+zipCode)
+            console.log('date: '+ checkedMethod)
 
              var narvar = {
                   "async": true,
@@ -27,23 +27,27 @@
                   "headers": {
                       "cache-control": "no-cache"
                 },
-                "data": "{ \"retailerName\":\"sunglasshut\", \"OAuthToken\":\"kjU8LDCJgjhmavEL\",\r\n   \"source\":\"test\",\r\n  \"shipping\":[  \r\n  {  \r\n  \"orderDate\":\" "+orderDate+" \",\r\n  \"carrier\":\"UPS\",\r\n  \"serviceType\":\"\",\r\n \"ozip\":\"94403\",\r\n \"dzip\":\""+zipCode+"\",\r\n \"fulfillmentDays\":1\r\n  }\r\n  ]\r\n}\r\n"
+                "data": "{ \"retailerName\":\"sunglasshut\", \"OAuthToken\":\"kjU8LDCJgjhmavEL\",\r\n   \"source\":\"test\",\r\n  \"shipping\":[  \r\n  {  \r\n  \"orderDate\":\""+orderDate+"\",\r\n  \"carrier\":\"\",\r\n  \"serviceType\":\"\",\r\n \"ozip\":\"38118\",\r\n \"dzip\":\""+zipCode+"\",\r\n \"fulfillmentDays\":0\r\n  }\r\n  ]\r\n}\r\n"
               }
               $.ajax(narvar)
                   .done(function (response) {
                     if(response.status.code === "OK"){
-                      var maxDeliveryE2 = shipDate(response.shipResponse.shippingInfos["0"].shippingDetail.detail[1].deliveryDateMax)
-                      var minDeliveryE2 = shipDate(response.shipResponse.shippingInfos["0"].shippingDetail.detail[1].deliveryDateMin)
                       var maxDeliveryUG = shipDate(response.shipResponse.shippingInfos["0"].shippingDetail.detail[0].deliveryDateMax)
                       var minDeliveryUG = shipDate(response.shipResponse.shippingInfos["0"].shippingDetail.detail[0].deliveryDateMin)
+                      var maxDeliveryE2 = shipDate(response.shipResponse.shippingInfos["0"].shippingDetail.detail[1].deliveryDateMax)
+                      var minDeliveryE2 = shipDate(response.shipResponse.shippingInfos["0"].shippingDetail.detail[1].deliveryDateMin)
                       var maxDelivery13 = shipDate(response.shipResponse.shippingInfos["0"].shippingDetail.detail[2].deliveryDateMax)
                       var minDelivery13 = shipDate(response.shipResponse.shippingInfos["0"].shippingDetail.detail[2].deliveryDateMin)
                       var maxDeliveryE1 = shipDate(response.shipResponse.shippingInfos["0"].shippingDetail.detail[3].deliveryDateMax)
                       var minDeliveryE1 = shipDate(response.shipResponse.shippingInfos["0"].shippingDetail.detail[3].deliveryDateMin)
+                      var maxDeliveryPM = shipDate(response.shipResponse.shippingInfos["0"].shippingDetail.detail[4].deliveryDateMax)
+                      var minDeliveryPM = shipDate(response.shipResponse.shippingInfos["0"].shippingDetail.detail[4].deliveryDateMin)
                       
-                      $('.val-10752 .ship-estimated').html(maxDeliveryE1+' <br/> ')
-                      $('.val-10753 .ship-estimated').html(maxDeliveryE2+' <br/> ') 
-                      $('.val-10751 .ship-estimated').html(maxDeliveryUG+' <br/> ')
+                      $('.val-10752 .ship-estimated').html(maxDeliveryE1).addClass('ship-has-estimate')
+                      $('.val-10753 .ship-estimated').html(maxDeliveryE2).addClass('ship-has-estimate') 
+                      $('.val-10751 .ship-estimated').html(maxDeliveryUG).addClass('ship-has-estimate')
+                      $('.val-10755 .ship-estimated').html(maxDeliveryPM).addClass('ship-has-estimate')
+
 
                       switch (checkedMethod) {
                           case "10753":
@@ -55,8 +59,13 @@
                           case "10751":
                             $('.estimate-header .red').text(maxDeliveryUG)
                             break;
+                          case "10755":
+                            $('.estimate-header .red').text(maxDeliveryPM)
+                            break;
+                          case "10754":
+                            $('.estimate-header .red').text('No Estimated Delivery on APO/FPO Orders')
+                          break;
                         }
-                      //$('.val-10753 .ship-estimated').text(maxDelivery13+' - ')                   
                       console.log('dateyUG: '+maxDeliveryUG)
                       console.log(response)
                     }else{
@@ -83,13 +92,13 @@
             
             function getOrderDate() {
               var now = new Date();
-              var year = "" + now.getFullYear();
-              var month = "" + (now.getMonth() + 1); if (month.length == 1) { month = "0" + month; }
-              var day = "" + now.getDate(); if (day.length == 1) { day = "0" + day; }
-              var hour = "" + now.getHours(); if (hour.length == 1) { hour = "0" + hour; }
-              var minute = "" + now.getMinutes(); if (minute.length == 1) { minute = "0" + minute; }
-              var second = "" + now.getSeconds(); if (second.length == 1) { second = "0" + second; }
-              return year + "-" + month + "-" + day + " " + hour + ":" + minute + ":" + second+"Z";
+              var year = "" + now.getUTCFullYear();
+              var month = "" + (now.getUTCMonth() + 1); if (month.length == 1) { month = "0" + month; }
+              var day = "" + now.getUTCDate(); if (day.length == 1) { day = "0" + day; }
+              var hour = "" + now.getUTCHours(); if (hour.length == 1) { hour = "0" + hour; }
+              var minute = "" + now.getUTCMinutes(); if (minute.length == 1) { minute = "0" + minute; }
+              var second = "" + now.getUTCSeconds(); if (second.length == 1) { second = "0" + second; }
+              return year + "-" + month + "-" + day + "T" + hour + ":" + minute + ":" + second+"Z";
             }
            console.log('Narvar loadAJAX');
         },
@@ -102,7 +111,7 @@
                   {"value":"10751", "method":"Standard Shipping", "subtext":"<strong>FREE</strong> Standard Shipping", "othertext":""},
                   {"value":"10752", "method":"Next-Day Shipping", "subtext":"$17.95 Next-Day Shipping", "othertext":""},
                   {"value":"10755", "method":"USPS PO BOX",       "subtext":"<strong>FREE</strong> USPS PO BOX Only ", "othertext":""},
-                  {"value":"10754", "method":"APO/FPO",           "subtext":"<strong>FREE</strong> APO/FPO ", "othertext":"<a class='shipping-modal-details' data-open-modal='shipping_modal' data-scroll-modal='mail_transit'> <span>Click here</span> to see estimated shipping times.</a>"}
+                  {"value":"10754", "method":"APO/FPO",           "subtext":"<strong>FREE</strong> APO/FPO ", "othertext":""}
               ]
           for (i = 0; i < ShipingSchedule.length; i++) { 
             var shipValue = ShipingSchedule[i],
@@ -152,6 +161,8 @@
 		         )
 			     ).appendTo(".shipping-method");
 			});
+      $('.val-10754').insertAfter($( '.val-10751'))
+      $('.val-10755').insertAfter($( '.val-10751'))
 			$('<div/>')
               .addClass('sgh-ship-estimate')
               .prepend(
@@ -193,5 +204,7 @@
     window.narvarAPI = i;
 
 }()), $(function() {
+  if(!$('#SignatureContainer:visible').length){
     narvarAPI.init();
+  }
 });
