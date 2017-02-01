@@ -1,38 +1,86 @@
+
+  /* === Shipping Global Header Style === */
+.exp-narvar-shipping #shipping_modal_details { cursor: pointer; display: none; white-space: nowrap;}
+.exp-narvar-shipping #shipping_modal_details span {text-decoration: underline;}
+.exp-narvar-shipping #shipping_modal_details i {font-style: normal;}
+
+/* === Modal Style === */
+.modal-style  {position: fixed; display: none; top: 0px; left: 0px; width: 100%; height: 100%; z-index: 120;}
+.modal-style .modal-container {width: 800px; box-sizing: border-box; padding: 0 25px 40px; text-align: center; background-color: #fff; z-index: 2; position: absolute; top: 50%; left: 50%; -webkit-transform: translate(-50%, -50%); -moz-transform: translate(-50%, -50%); -ms-transform: translate(-50%, -50%); transform: translate(-50%, -50%); -webkit-transform-style: preserve-3d; -moz-transform-style: preserve-3d; transform-style: preserve-3d;}
+.modal-style .modal-header {position: relative; text-align: center; height: 90px;}
+.modal-style .modal-header h3 {text-align: center; font-size: 24px; line-height: 90px; letter-spacing: .5px; font-family: "brandon_bold",Helvetica,Arial,sans-serif;}
+.modal-style .close-menu {position: absolute; cursor: pointer; top: 15px; right: 15px; display: block; color: #111; font-weight: normal; font-family: "brandon_bold",Helvetica,Arial,sans-serif; padding-top: 2px; font-size: 18px;}
+.modal-style .close-menu p {font-family: "brandon_regular",Helvetica,Arial,sans-serif; font-size: 10px; font-weight: normal;}
+.modal-style .modal-background {position: absolute; width: 100%; z-index: 1; height: 100%; background: rgba(0, 0, 0, 0.7);}
+.modal-style .modal-sgh-logo {margin: 40px auto 0;}
+.modal-style .modal-scroller { box-sizing: border-box; border: solid 1px #111; height: 300px; overflow-y: scroll; padding: 30px; }
+
+/* === Shipping Modal Style === */
+.modal-style #mail_transit { padding-top: 40px; border-top: #ccc solid 1px; margin-top: 20px;}
+.modal-style #mail_transit  section {padding: 5px 0;}
+.modal-style #mail_transit h3 { font-size: 18px; text-transform: none; padding-bottom: 10px; font-family: "brandon_bold",Helvetica,Arial,sans-serif; font-weight: normal;}
+.modal-style #mail_transit h4 {padding-bottom: 5px; font-family: "brandon_medium",Helvetica,Arial,sans-serif; font-weight: normal;  margin: 0px !important;}
+.modal-style #mail_transit p { text-transform: none; line-height: 16px; padding-bottom: 5px;}
+.modal-style p.grey-copy {color: #959595;  text-transform: none; font-size: 14px;}
+.modal-style .red {color: rgb(231, 76, 60);}
+.modal-style .dataShippingDelivery {margin: 0 auto 20px; }
+.modal-style .dataShippingDelivery td  {padding: 10px 25px; text-align: left;}
+.modal-style ul {border-bottom: #ccc solid 1px; padding-bottom: 40px; margin-bottom: 40px;}
+.modal-style ul li { text-transform: none; list-style: none; padding-bottom: 20px; font-size: 14px; font-family: "brandon_regular",Helvetica,Arial,sans-serif;}
+
 /* === Shipping Cart === */
-.shipping_method_content .fe.half {float: none; margin: 0px !important; width: 100%; box-sizing: border-box;}
-.shipping_method_content .fe.half .drop_down {height: 0px !important; padding: 0px !important;}
-.shipping_method_content .fe.half .select-wrapper.state-required {  border: none !important; height: 0px !important; }
-.shipping_method_content span.required {padding: 10px 20px; text-align: center; border-bottom: solid 1px #E74C3C; margin-bottom: 10px;}
-#cart-body #cart-left .shipping_method_content .select-wrapper.gray {height: 0px;}
-.shipping_method_content {border: 1px solid #111; padding: 20px; box-sizing: border-box; margin-bottom: 25px;}
-#shppingMethodDiv h3 label {font-size: 20px !important; padding: 20px 0px 15px;  font-family: "brandon_bold",Helvetica,Arial,sans-serif;}
-.sgh-ship-radio {display: block; padding: 3px 0; font-family: "brandon_regular",Helvetica,Arial,sans-serif;}
-.sgh-ship-radio input {display: none;}
-.sgh-ship-radio label {position: relative; line-height: 16px; cursor: pointer; display: inline-block !important; }
-.sgh-ship-radio span.icon { display: inline-block; margin-right: 5px; position: relative; top: 5px;}
-.sgh-ship-radio a { text-transform: none; font-family: "brandon_regular",Helvetica,Arial,sans-serif;}
-.sgh-ship-radio a span {text-decoration: underline; cursor: pointer;}
-.shipping_method label span,
-.shipping_method label strong,
-.shipping_method label {font-size: 15px !important;}
-.shipping_method_content .shipping-method-disclaimer {color: #E74C3C; font-size: 13px !important; padding-top: 20px; text-transform: uppercase !important;} 
-.shipping_method_content .shipping-method-disclaimer .shipping-modal-details{text-decoration: underline; color: #959595; cursor: pointer;}
-.shipping-modal-details {    
-	text-decoration: underline;
+.exp-narvar-shipping .shipping_method_content .fe.half {float: none; margin: 0px !important; width: 100%; box-sizing: border-box;}
+.exp-narvar-shipping .shipping_method_content .fe.half .drop_down {height: 0px !important; padding: 0px !important;}
+.exp-narvar-shipping .shipping_method_content .fe.half .select-wrapper.state-required {  border: none !important; height: 0px !important; }
+.exp-narvar-shipping .shipping_method_content span.required {padding: 10px 20px; text-align: center; border-bottom: solid 1px #E74C3C; margin-bottom: 10px;}
+.exp-narvar-shipping #cart-body #cart-left .shipping_method_content .select-wrapper.gray {height: 0px;}
+.exp-narvar-shipping .shipping_method_content {border: 1px solid #111; padding: 20px; box-sizing: border-box; margin-bottom: 25px;}
+.exp-narvar-shipping #shppingMethodDiv h3 label {font-size: 20px !important; padding: 20px 0px 15px;  font-family: "brandon_bold",Helvetica,Arial,sans-serif;}
+.exp-narvar-shipping .sgh-ship-radio {display: block; padding: 3px 0; font-family: "brandon_regular",Helvetica,Arial,sans-serif;}
+.exp-narvar-shipping .sgh-ship-radio input {display: none;}
+.exp-narvar-shipping .sgh-ship-radio label {position: relative; line-height: 16px; cursor: pointer; display: inline-block !important; }
+.exp-narvar-shipping .sgh-ship-radio span.icon { display: inline-block; margin-right: 5px; position: relative; top: 5px;}
+.exp-narvar-shipping .sgh-ship-radio a { text-transform: none; font-family: "brandon_regular",Helvetica,Arial,sans-serif;}
+.exp-narvar-shipping .sgh-ship-radio a span {text-decoration: underline; cursor: pointer;}
+.exp-narvar-shipping .shipping_method label span,
+.exp-narvar-shipping .shipping_method label strong,
+.exp-narvar-shipping .shipping_method label {font-size: 15px !important;}
+.exp-narvar-shipping .shipping_method_content .shipping-method-disclaimer {color: #E74C3C; font-size: 13px !important; padding-top: 20px; text-transform: uppercase !important;} 
+.exp-narvar-shipping .shipping_method_content .shipping-method-disclaimer .shipping-modal-details{text-decoration: underline; color: #959595; cursor: pointer;}
+.exp-narvar-shipping .shipping-modal-details {    
+  text-decoration: underline;
     cursor: pointer;
 }
-p.estimate-header {
+.exp-narvar-shipping p.estimate-header {
     font-size: 18px !important;
     padding-bottom: 8px;
     text-transform: uppercase !important;
 }
-p.estimate-body {
+.exp-narvar-shipping p.estimate-body {
     font-size: 14px !important;
     padding-bottom: 20px;
 }
-.ship-countdown, 
-.ship-count-container{display: none;}
+.exp-narvar-shipping .ship-countdown, 
+.exp-narvar-shipping .ship-count-container{display: none;}
+
+
+.exp-narvar-shipping .shipping_method_content.ship-hto {
+    border: none;
+    padding: 20px;
+    box-sizing: border-box;
+    margin-bottom: 25px;
+}
+
+.exp-narvar-shipping #cart-body #cart-left .shipping_method_content.ship-hto .select-wrapper.gray{
+height: inherit;
+}
+
+.exp-narvar-shipping .shipping_method_content.ship-hto .fe.half .drop_down {
+    height: inherit; !important; 
+     padding: 15px 25px 15px 10px; !important;
+}
 
 @media (min-height:710px) {
-  .modal-style .modal-scroller {height: 400px;  }
+ .exp-narvar-shipping  .modal-style .modal-scroller {height: 400px;  }
 }
+.exp-narvar-shipping #svg_down-arrow {position: absolute; background: #fff; z-index: 2; bottom: 90px; left: 50%; -webkit-transform: translateX(-50%); -moz-transform: translateX(-50%); transform: translateX(-50%);}

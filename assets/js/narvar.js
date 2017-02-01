@@ -16,7 +16,7 @@
             var ship = []
             var zipCode = zip
             var checkedMethod = $( "#singleShipmentShippingMode option:selected" ).val()
-            console.log('date: '+ orderDate+ ' ZIP: '+zipCode)
+            //console.log('date: '+ orderDate+ ' ZIP: '+zipCode)
 
              var narvar = {
                   "async": true,
@@ -69,28 +69,30 @@
 
 
                       //$('.val-10753 .ship-estimated').text(maxDelivery13+' - ')                   
-                      console.log('dateyUG: '+maxDeliveryUG)
-                      console.log(response)
+                     // console.log('dateyUG: '+maxDeliveryUG)
+                     // console.log(response)
                     }else{
-                      console.log("didn't load "+response)
+                      //console.log("didn't load "+response)
                       $('.estimate-header .red').text('Not available at this time')
                     }
                     
                   })
                   .fail(function(){
                      $('.estimate-header .red').text('Not available at this time')
-                    console.log("error")
+                   // console.log("error")
                   })
 
             function shipDate(date) {
               var monthNames = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
               var dayNames = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
               var now = new Date(date);
-                now.setDate(now.getDate() + 1);
-              var year = "" + now.getFullYear();
-              var month = "" + (now.getMonth()); if (month.length == 1) { month = "0" + month; }
-              var day = "" + now.getDate(); if (day.length == 1) { day = "0" + day; }
-              return dayNames[now.getDay()] +', '+monthNames[month]+' '+day+', '+year ;
+                now.setDate(now.getUTCDate());
+                //console.log('now'+now)
+              var year = "" + now.getUTCFullYear();
+              var month = "" + (now.getUTCMonth());
+              var day = "" + now.getUTCDate(); if (day.length == 1) { day = "0" + day; }
+              //console.log('MONTH'+month)
+              return dayNames[now.getUTCDay()] +', '+monthNames[month]+' '+day+', '+year ;
             }
             
             function getOrderDate() {
@@ -103,18 +105,18 @@
               var second = "" + now.getUTCSeconds(); if (second.length == 1) { second = "0" + second; }
               return year + "-" + month + "-" + day + "T" + hour + ":" + minute + ":" + second+"Z";
             }
-           console.log('Narvar loadAJAX');
+           //console.log('Narvar loadAJAX');
         },
         setCountDown: function() {
           var today = new Date();
           var date = new Date(Date.UTC(today.getUTCFullYear(), today.getUTCMonth(), today.getUTCDate(), 22, 0, 0));
-          console.log('date '+date);
+         // console.log('date '+date);
           //var date = "29 November 2016 16:00:00 GMT-0400"
           var thisEl = $('.ship-countdown')
           var eventDate = Date.parse(date) / 1e3;
           var currentDate = Math.floor(Date.now() / 1e3);
-          console.log('eventDate '+eventDate);
-           console.log('currentDate '+Date());
+         // console.log('eventDate '+eventDate);
+          // console.log('currentDate '+Date());
           if (eventDate <= currentDate) {
             //thisEl.hide();
           }else{
@@ -159,7 +161,7 @@
             //clearInterval(interval)
           } else {
             thisEl.hide();
-            console.log("Invalid date. Example: 30 Tuesday 2013 15:50:00 EST");
+            //console.log("Invalid date. Example: 30 Tuesday 2013 15:50:00 EST");
             //clearInterval(interval);
           }
         
@@ -171,7 +173,7 @@
           ShipingSchedule = [
                   {"value":"10753", "method":"2-Day Shipping",    "subtext":"<strong>FREE</strong> 2-Day Shipping", "othertext":""},
                   {"value":"10751", "method":"Standard Shipping", "subtext":"<strong>FREE</strong> Standard Shipping", "othertext":""},
-                  {"value":"10752", "method":"Next-Day Shipping", "subtext":"$17.95 Next-Day Shipping", "othertext":""},
+                  {"value":"10752", "method":"Next-Day Shipping", "subtext":"<span class='ship-amount'>$17.95</span> Next-Day Shipping", "othertext":""},
                   {"value":"10755", "method":"USPS PO BOX",       "subtext":"<strong>FREE</strong> USPS PO BOX Only ", "othertext":""},
                   {"value":"10754", "method":"APO/FPO",           "subtext":"<strong>FREE</strong> APO/FPO ", "othertext":"<a class='shipping-modal-details' data-open-modal='shipping_modal' data-scroll-modal='mail_transit'> <span>Click here</span> to see estimated shipping times.</a>"}
               ]
@@ -199,6 +201,8 @@
               othertext = shipSchedule[1],
               radioClass = 'redesignIcons-radio';
 
+
+
             if (shipMethodIndex == i){
               radioClass = 'redesignIcons-radio-checked';
             }
@@ -224,7 +228,13 @@
                     })      
                  )
                ).append(othertext).appendTo(".shipping_method_content");
+              
           });
+          var oneDayUPS = $('#oneday_UPS').text();
+          if (oneDayUPS.indexOf('FREE') !== -1){
+            $('.sgh-ship-radio.val-10752').find('.ship-amount').html('<strong>FREE</strong>');
+              //console.log('FREE Next Day')
+          }
           $('.val-10754').insertAfter($( '.val-10751'))
           $('.val-10755').insertAfter($( '.val-10751'))
            $('<div/>')
@@ -244,7 +254,7 @@
           $('.mapquest-lookup').change(function() {
              var zip = $('.mapquest-lookup').val()
               obj.loadAJAX(zip)
-              console.log('change');
+              //console.log('change');
               //shipCheckZip($(this));
           });
           if( $('.mapquest-lookup').val()){
@@ -279,6 +289,7 @@
 
 }()), $(function() {
   if(!$('.hto-copy:visible').length){
+    $('body').addClass('exp-narvar-shipping')
     narvarAPI.init();
   }else{
     $('.shipping_method_content').addClass('ship-hto');
